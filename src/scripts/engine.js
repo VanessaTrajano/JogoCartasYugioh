@@ -111,13 +111,13 @@ async function checkDuelResults(playerCardId, computerCardId) {
 
   if (playerCard.winOf.includes(computerCardId)) {
     duelResult = "WIN";
-    await playAudio(duelResult)
+    await playAudio(duelResult);
     state.score.playerScore++;
   }
 
   if (playerCard.loseOf.includes(computerCardId)) {
     duelResult = "LOSE";
-    await playAudio(duelResult)
+    await playAudio(duelResult);
     state.score.computerScore++;
   }
 
@@ -148,13 +148,15 @@ async function drawCards(cardNumbers, fieldSide) {
   }
 }
 
-async function playAudio(status){
-  const audio = new Audio(`./src/assets/audios/${status}.wav`)
-  audio.play()
+async function playAudio(status) {
+  const audio = new Audio(`./src/assets/audios/${status}.wav`);
+  audio.play();
 }
 
 async function resetDuel() {
   state.cardSprites.avatar.src = "";
+  state.cardSprites.name.innerText = "Selecione";
+  state.cardSprites.type.innerText = "uma carta";
   state.actions.button.style.display = "none";
 
   state.fieldCards.player.style.display = "none";
@@ -163,6 +165,9 @@ async function resetDuel() {
 }
 
 function init() {
+  state.fieldCards.player.style.display = "none";
+  state.fieldCards.computer.style.display = "none";
+
   drawCards(5, state.playerSides.player1);
   drawCards(5, state.playerSides.computer);
 }
